@@ -2,9 +2,14 @@
 
 namespace App\Providers;
 
+
+
+use App\Models\TaskModel;
+use App\Policies\TaskPolicy;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
-use App\Repositories\Interfaces\UserInterface;
-use App\Repositories\UserRepository;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(UserInterface::class, UserRepository::class);
+
     }
 
     /**
@@ -25,6 +30,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Gate::policy(TaskModel::class, TaskPolicy::class);
     }
 }
